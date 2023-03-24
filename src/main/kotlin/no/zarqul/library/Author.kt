@@ -1,5 +1,6 @@
 package no.zarqul.library
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
 
 @Entity
@@ -17,8 +18,17 @@ data class Author
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long?
-    ){
+    var id: Long?,
+
+    @ManyToMany
+    @JoinTable(
+        name="authoredBooks",
+        joinColumns = [JoinColumn(name="author_id")],
+        inverseJoinColumns = [JoinColumn(name="book_id")]
+    )
+    @JsonIgnoreProperties("authors")
+    var authoredBooks: Set<Book>
+) {
 
     override fun toString(): String {
         return super.toString()
