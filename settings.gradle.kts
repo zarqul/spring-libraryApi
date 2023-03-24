@@ -1,1 +1,1 @@
-rootProject.name = "libraryApi"
+rootProject.name = "library"

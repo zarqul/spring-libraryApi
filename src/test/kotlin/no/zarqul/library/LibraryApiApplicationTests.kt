@@ -1,4 +1,4 @@
-package no.zarqul.backend.libraryApi
+package no.zarqul.library
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
