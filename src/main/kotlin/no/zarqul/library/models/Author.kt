@@ -1,4 +1,4 @@
-package no.zarqul.library
+package no.zarqul.library.models
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
@@ -27,7 +27,7 @@ data class Author
         inverseJoinColumns = [JoinColumn(name="book_id")]
     )
     @JsonIgnoreProperties("authors")
-    var authoredBooks: Set<Book>
+    var authoredBooks: Set<Book>? = null
 ) {
 
     override fun toString(): String {

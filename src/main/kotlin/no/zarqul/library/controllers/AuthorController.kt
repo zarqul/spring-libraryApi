@@ -1,7 +1,7 @@
 package no.zarqul.library.controllers
 
 import jakarta.validation.Valid
-import no.zarqul.library.Author
+import no.zarqul.library.models.Author
 import no.zarqul.library.repository.AuthorRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

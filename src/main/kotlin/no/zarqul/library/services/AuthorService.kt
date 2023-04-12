@@ -1,6 +1,6 @@
 package no.zarqul.library.services
 
-import no.zarqul.library.Author
+import no.zarqul.library.models.Author
 import no.zarqul.library.repository.AuthorRepository
 import org.springframework.stereotype.Service
 import kotlin.jvm.optionals.toList
