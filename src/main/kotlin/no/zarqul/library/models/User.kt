@@ -1,9 +1,12 @@
 package no.zarqul.library.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
 
 @Entity
 @Table(name="users")
+@JsonIgnoreProperties("bookCollection", "friends")
 class User (
     @Column(name="first_name", nullable=false)
     val firstName: String,
@@ -34,5 +37,13 @@ class User (
 
     fun addBookToCollection(book: Book) {
         bookCollection?.add(book)
+    }
+
+    fun getFriends(): List<User>? {
+        return friends?.toList()
+    }
+
+    fun getCollection(): List<Book>? {
+        return bookCollection?.sortedBy{ "id" }
     }
 }

@@ -27,8 +27,8 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
 	implementation("mysql:mysql-connector-java:8.0.32")
-	implementation("com.google.code.gson:gson:2.10.1")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("com.google.code.gson:gson:2.10.1")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 tasks.withType<KotlinCompile> {

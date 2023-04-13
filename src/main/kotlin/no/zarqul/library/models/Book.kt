@@ -21,6 +21,7 @@ class Book (
     @JsonIgnoreProperties("authoredBooks")
     val authors: List<Author> = listOf(),
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "bookCollection")
     @JsonIgnoreProperties("bookCollection")
     val owners: List<User> = listOf()
@@ -31,7 +32,6 @@ class Book (
         return super.toString()
     }
 
-    @JsonIgnore
     fun getOwners(): Set<User> {
         return owners.toSet()
     }
