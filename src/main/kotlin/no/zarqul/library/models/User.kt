@@ -44,6 +44,6 @@ class User (
     }
 
     fun getCollection(): List<Book>? {
-        return bookCollection?.sortedBy{ "id" }
+        return bookCollection?.sortedBy{ id }
     }
 }

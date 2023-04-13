@@ -6,8 +6,11 @@ import no.zarqul.library.models.User
 import no.zarqul.library.repository.BookRepository
 import no.zarqul.library.repository.UserRepository
 import no.zarqul.library.services.UserService
+import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import kotlin.jvm.optionals.getOrElse
 import kotlin.jvm.optionals.getOrNull
 
 @RestController
@@ -30,16 +33,20 @@ class UserController(
         }.orElse(ResponseEntity.notFound().build())
     }
 
+    @OptIn(ExperimentalStdlibApi::class)
     @PostMapping("/{userId}/collection")
-    fun addBookToCollection(@PathVariable(value = "userId") userId : Int, @RequestBody body: Map<String, Long>) {
-        val userInst: User = userRepository.findById(userId.toLong()).get()
+    fun addBookToCollection(@PathVariable(value = "userId") userId : Int, @RequestBody body: Map<String, Long>): ResponseEntity<List<Book>>? {
+        val userInst: User = userRepository.findById(userId.toLong()).getOrElse { return ResponseEntity(HttpStatus.BAD_REQUEST) }
+
+        // We need to verify if the book is already in the collection or if it even exist
         body["bookId"]?.let {
-            bookRepository.findById(it).map{ book ->
-                userInst.addBookToCollection(book)
-                userRepository.save(userInst)
-                ResponseEntity.ok(userInst)
-            }
+            val book = bookRepository.findById(it).getOrElse { return ResponseEntity(HttpStatus.BAD_REQUEST)}
+            userInst.addBookToCollection(book)
+            userRepository.save(userInst)
         }
+
+        // Return a response containing the new collection and a 201 Created response code
+        return ResponseEntity<List<Book>>(userInst.getCollection(), HttpStatus.CREATED)
     }
 
     @GetMapping("/{userId}/collection")
